@@ -1,0 +1,451 @@
+
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="shortcut icon" href="images/fav_ico_master.ico" type="image/x-icon">
+    <title>硕士研究生招生服务系统</title>
+    <script>
+        document.write("<script src=\"js/login/Login_mas.js?v=" + Math.random() + "\"><\/script>");
+    </script>
+</head>
+
+<body>
+    <div class="login_main">
+        <div class="login_panel" id="div_login_panel">
+            <div class="login_banner">
+                <img alt="硕士研究生招生服务系统" src="LogoImage/master/login_logo.png">
+            </div>
+            <div class="login_con">
+                <div class="tit">
+                    <h4>用户登录</h4>
+                    <span>USER LOGIN</span>
+                </div>
+                <div class="cont">
+                    <form id="ff_login" method="post">
+                        <div class="form_group">
+                            <div class="field">
+                                <span class="tw_sel">
+                                    <select id="login_testno">
+                                        <option value="" selected>暂无考试档案</option>
+                                    </select>
+                                </span>
+                                <span class="iconfont icon-exam login_testname" style="display: none;"></span>
+                                <span class="name login_testname" style="display: none;">考试名称：</span>
+                                <input type="text" id="login_testname" class="input login_testname" disabled style="display: none;">
+                                <input type="hidden" id="login_GroupID" value="1">
+                                <!-- 报错时请在tw_sel增加class标签，触发错误样式tw_sel_error -->
+                                <!-- 禁用样式tw_sel_dis -->
+                            </div>
+                            <div class="error_tips" style="opacity: 0;">
+                                <span class="iconfont icon-tips"></span>请先选择考试档案！
+                            </div>
+                        </div>
+                        <div class="form_group">
+                            <div class="field">
+                                <span class="iconfont icon-user"></span>
+                                <span class="name">姓名：</span>
+                                <input type="text" id="login_username" name="username" placeholder="请输入姓名" class="input"
+                                    onkeydown="if(event.keyCode==13) $('#btn_login1').click()"
+                                    oninput="$(this).removeClass('input_error').parent().next().css('opacity', '0')">
+                                <!-- 报错时请增加class标签，触发错误样式 class="input_error" -->
+                            </div>
+                            <div class="error_tips" style="opacity: 0;">
+                                <span class="iconfont icon-tips"></span>姓名输入错误，请检查后重新输入！
+                            </div>
+                        </div>
+                        <div class="form_group">
+                            <div class="field field_text_four">
+                                <span class="iconfont icon-myinfo"></span>
+                                <span class="name">身份证号：</span>
+                                <input type="text" id="login_userid" name="userid" placeholder="请输入身份证号" class="input"
+                                    onkeydown="if(event.keyCode==13) $('#btn_login1').click()"
+                                    oninput="$(this).removeClass('input_error').parent().next().css('opacity', '0')">
+                                <!-- 报错时请增加class标签，触发错误样式 class="input_error" -->
+                            </div>
+                            <div class="error_tips" style="opacity: 0;">
+                                <span class="iconfont icon-tips"></span>身份证号输入错误，请检查后重新输入！
+                            </div>
+                        </div>
+                        <div class="form_group form_login_pwcode">
+                            <div class="field">
+                                <span class="iconfont icon-lock"></span>
+                                <span class="name">密码：</span>
+                                <input type="password" id="login_pwcode" name="PWCode" placeholder="请输入密码" class="input" style="ime-mode: disabled;"
+                                    onkeydown="if(event.keyCode==13) $('#btn_login1').click()"
+                                    oninput="$(this).removeClass('input_error').parent().next().css('opacity', '0')">
+                                <span class="form_icon_eye" onclick="Login.TogglePassword(this)">
+                                    <i class="iconfont icon-visible" title="显示"></i>
+                                    <i class="iconfont icon-invisible" title="隐藏" style="display: none;"></i>
+                                </span>
+                            </div>
+                            <div class="error_tips" style="opacity: 0;">
+                                <span class="iconfont icon-tips"></span>密码错误，请重新输入！
+                            </div>
+                        </div>
+                        <div class="form_group form_login_examid" style="display: none;">
+                            <div class="field field_text_four">
+                                <span class="iconfont icon-credential"></span>
+                                <span class="name">考生编号：</span>
+                                <input type="text" id="login_examid" name="ExamID" placeholder="请输入15位考生编号" class="input"
+                                    onkeydown="if(event.keyCode==13) $('#btn_login1').click()"
+                                    oninput="$(this).removeClass('input_error').parent().next().css('opacity', '0')">
+                                <!-- 报错时请增加class标签，触发错误样式 class="input_error" -->
+                            </div>
+                            <div class="error_tips" style="opacity: 0;">
+                                <span class="iconfont icon-tips"></span>考号输入错误，请检查后重新输入！
+                            </div>
+                        </div>
+                        <div class="form_group">
+                            <div class="field field_text_three">
+                                <span class="iconfont icon-verify-code"></span>
+                                <span class="name">验证码：</span>
+                                <input type="text" id="yzm" name="VerifyCode" placeholder="请输入右侧验证码" class="input"
+                                    autocomplete="off" onkeydown="if(event.keyCode==13) $('#btn_login1').click()"
+                                    oninput="$(this).removeClass('input_error').parent().next().css('opacity', '0')">
+                                <a class="icon_code">
+                                    <img id="VerifyCode" src="VerifyCode.ashx" alt="验证码看不清楚,请点击换一个"
+                                        onclick="this.src='VerifyCode.ashx?time=' + Math.random()">
+                                </a>
+                            </div>
+                            <div class="error_tips" style="opacity: 0;">
+                                <span class="iconfont icon-tips"></span>验证码错误，请重新输入！
+                            </div>
+                        </div>
+                    </form>
+                    <!-- <div class="form_group form_group_btn">
+                        <span class="btn_blue"><a>登录</a></span>
+                    </div> -->
+                    <div class="form_group form_group_btn form_group_btn_smallfont">
+                        <span class="btn_default"><a id="btn_register1">帐号绑定</a></span>
+                        <span class="btn_blue"><a id="btn_login1">登录</a></span>
+                    </div>
+                    <div class="login_forgetpwd">
+                        <span class="bindpwd_tips">首次登录请点击“帐号绑定”创建密码</span>
+                        <a data-reveal-id="win_findpw" data-animation="fade" onclick="Login.OpenFindPW()">忘记密码？</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="register_logo" id="div_register_logo" style="display: none;">
+            <img src="LogoImage/master/register_logo.png">
+            <img src="LogoImage/master/register_sys_name.png">
+          </div>
+        <div class="login_panel" id="div_register_panel" style="display: none;">
+            <div class="login_con">
+                <div class="tit">
+                    <h4>账号绑定</h4>
+                    <span>ACCOUNT BIND</span>
+                </div>
+                <form id="ff_register" method="post">
+                    <div class="cont cont_bindpwd">
+                        <!-- <div class="tips">
+                            <i class="iconfont icon-tips"></i>
+                            <b>请认真核对证件号码、姓名是否准确，注册后不能再修改！</b>
+                        </div> -->
+                        <ul>
+                            <li>
+                                <div class="form_group">
+                                    <div class="field">
+                                        <span class="tw_sel">
+                                            <select id="register_testno" name="TestNo">
+                                                <option value="" selected>暂无考试档案</option>
+                                            </select>
+                                        </span>
+                                        <span class="iconfont icon-exam register_testname" style="display: none;"></span>
+                                        <span class="name register_testname" style="display: none;">考试名称：</span>
+                                        <input type="text" id="register_testname" class="input register_testname" disabled style="display: none;">
+                                        <input type="hidden" id="register_GroupID" name="Stutype" value="1">
+                                        <!-- 报错时请在tw_sel增加class标签，触发错误样式tw_sel_error -->
+                                    </div>
+                                    <div class="error_tips" style="opacity: 0;">
+                                        <span class="iconfont icon-tips"></span>请先选择考试档案！
+                                    </div>
+                                </div>
+                            </li>
+                            <li>
+                                <div class="form_group">
+                                    <div class="field field_text_four">
+                                        <span class="iconfont icon-myinfo"></span>
+                                        <span class="name">身份证号：</span>
+                                        <input type="text" id="register_IDCardNo" name="IDCardNo" placeholder="请输入身份证号" class="input"
+                                               oninput="$(this).removeClass('input_error').parent().next().css('opacity', '0')">
+                                        <!-- 报错时请增加class标签，触发错误样式 class="input_error" -->
+                                    </div>
+                                    <div class="error_tips" style="opacity: 0;">
+                                        <span class="iconfont icon-tips"></span>身份证号不能为空！
+                                    </div>
+                                </div>
+                            </li>
+                            <li>
+                                <div class="form_group">
+                                    <div class="field field_text_four">
+                                        <span class="iconfont icon-user"></span>
+                                        <span class="name">真实姓名：</span>
+                                        <input type="text" id="register_Name" name="Name" placeholder="请输入姓名" class="input"
+                                               oninput="$(this).removeClass('input_error').parent().next().css('opacity', '0')">
+                                        <!-- 报错时请增加class标签，触发错误样式 class="input_error" -->
+                                    </div>
+                                    <div class="error_tips" style="opacity: 0;">
+                                        <span class="iconfont icon-tips"></span>姓名输入错误，请检查后重新输入！
+                                    </div>
+                                </div>
+                            </li>
+                            <li>
+                                <div class="form_group field_text_four">
+                                    <div class="field field_text_four">
+                                        <span class="iconfont icon-email"></span>
+                                        <span class="name">考生编号：</span>
+                                        <input type="text" id="register_ExamID" name="ExamID" placeholder="请输入15位考生编号" class="input"
+                                               oninput="$(this).removeClass('input_error').parent().next().css('opacity', '0')">
+                                        <!-- 报错时请增加class标签，触发错误样式 class="input_error" -->
+                                    </div>
+                                    <div class="error_tips" style="opacity: 0;">
+                                        <span class="iconfont icon-tips"></span>考号不能为空！
+                                    </div>
+                                </div>
+                            </li>
+
+                            <li>
+                                <div class="form_group">
+                                    <div class="field field_text_four">
+                                        <span class="iconfont icon-lock"></span>
+                                        <span class="name">创建密码：</span>
+                                        <input type="password" id="register_PWCode" name="PWCode" placeholder="请输入8-15位数字和大小写字母" class="input" style="ime-mode: disabled;"
+                                               oninput="value=value.replace(/[^\x21-\x7e]/g,'');$(this).removeClass('input_error').parent().next().css('opacity', '0');"
+                                               onpaste="return false" oncontextmenu="return false" oncopy="return false" oncut="return false">
+                                        <span class="form_icon_eye" onclick="Login.TogglePassword(this)">
+                                            <i class="iconfont icon-visible" title="显示"></i>
+                                            <i class="iconfont icon-invisible" title="隐藏" style="display: none;"></i>
+                                        </span>
+                                    </div>
+                                    <div class="error_tips" style="opacity: 0;">
+                                        <span class="iconfont icon-tips"></span>密码不能为空！
+                                    </div>
+                                </div>
+                            </li>
+                            <li>
+                                <div class="form_group">
+                                    <div class="field field_text_four">
+                                        <span class="iconfont icon-lock"></span>
+                                        <span class="name">确认密码：</span>
+                                        <input type="password" id="register_PWCode2" placeholder="请再次输入登录密码" class="input" style="ime-mode: disabled;"
+                                               oninput="value=value.replace(/[^\x21-\x7e]/g,'');$(this).removeClass('input_error').parent().next().css('opacity', '0')"
+                                               onpaste="return false" oncontextmenu="return false" oncopy="return false" oncut="return false">
+                                        <span class="form_icon_eye" onclick="Login.TogglePassword(this)">
+                                            <i class="iconfont icon-visible" title="显示"></i>
+                                            <i class="iconfont icon-invisible" title="隐藏" style="display: none;"></i>
+                                        </span>
+                                    </div>
+                                    <div class="error_tips" style="opacity: 0;">
+                                        <span class="iconfont icon-tips"></span>两次密码输入不一致！
+                                    </div>
+                                </div>
+                            </li>
+                            <li class="email_verify">
+                                <div class="form_group">
+                                    <div class="field field_text_four">
+                                        <span class="iconfont icon-email"></span>
+                                        <span class="name">安全邮箱：</span>
+                                        <input type="text" id="register_Email" name="Email" placeholder="请输入安全邮箱" class="input"
+                                               oninput="$(this).removeClass('input_error').parent().next().css('opacity', '0')">
+                                        <!-- 报错时请增加class标签，触发错误样式 class="input_error" -->
+                                    </div>
+                                    <div class="error_tips" style="opacity: 0;">
+                                        <span class="iconfont icon-tips"></span>安全邮箱不能为空！
+                                    </div>
+                                </div>
+                            </li>
+                            <li class="email_verify">
+                                <div class="form_group">
+                                    <div class="field field_text_four field_vcode">
+                                        <span class="iconfont icon-verify-code"></span>
+                                        <span class="name">验证码：</span>
+                                        <input type="text" id="register_Email_VerifyCode" name="VerifyCode" placeholder="邮箱验证码" class="input"
+                                               oninput="$(this).removeClass('input_error').parent().next().css('opacity', '0')"
+                                               autocomplete="off">
+                                        <!-- 报错时请增加class标签，触发错误样式 class="input_error" -->
+                                        <a id="btn_Email_VerifyCode" onclick="Login.SendVerify()">获取验证码</a>
+                                    </div>
+                                    <div class="error_tips" style="opacity: 0;">
+                                        <span class="iconfont icon-tips"></span>验证码错误，请重新输入！
+                                    </div>
+                                </div>
+                            </li>
+                            <li>
+								<div class="login_forgetpwd">
+									<span class="bindpwd_tips">（请使用研招网报名信息中填写的邮箱）</span>
+								</div>
+							</li>
+                            <li class="tel_verify" style="display: none;">
+                                <div class="form_group">
+                                    <div class="field field_text_three">
+                                        <span class="iconfont icon-tel"></span>
+                                        <span class="name">手机号：</span>
+                                        <input type="text" id="register_Tel" name="Tel" placeholder="请输入手机号" class="input"
+                                               oninput="$(this).removeClass('input_error').parent().next().css('opacity', '0')">
+                                    </div>
+                                    <div class="error_tips" style="opacity: 0;">
+                                        <span class="iconfont icon-tips"></span>手机号不能为空！
+                                    </div>
+                                </div>
+                            </li>
+                            <li class="tel_verify" style="display: none;">
+                                <div class="form_group">
+                                    <div class="field field_text_three field_vcode">
+                                        <span class="iconfont icon-verify-code"></span>
+                                        <span class="name">验证码：</span>
+                                        <input type="text" id="register_Tel_VerifyCode" placeholder="手机验证码" class="input"
+                                               oninput="$(this).removeClass('input_error').parent().next().css('opacity', '0')"
+                                               autocomplete="off">
+                                        <a id="btn_Tel_VerifyCode" onclick="Login.SendVerify()">获取验证码</a>
+                                    </div>
+                                    <div class="error_tips" style="opacity: 0;">
+                                        <span class="iconfont icon-tips"></span>验证码错误，请重新输入！
+                                    </div>
+                                </div>
+                            </li>
+                            <li>
+                                <div class="form_group form_group_btn form_group_btn_smallfont">
+                                    <span class="btn_default"><a onclick="Login.GoLogin()">取消</a></span>
+                                    <span class="btn_blue"><a onclick="Login.BindAccount()">确认</a></span>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                </form>
+            </div>
+        </div>
+        <div class="login_panel" id="div_register_success" style="display: none;">
+            <div class="login_con">
+                <div class="cont">
+                    <div class="forpsd_suc_pic"><img src="images/mas/register_success.svg"></div>
+                    <div class="forpsd_suc_text">恭喜您帐号绑定成功！</div>
+                    <div class="form_group form_group_btn form_group_btn_smallfont">
+                        <span class="btn_default"><a onclick="Login.GoLogin()">返回登录</a></span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="login_footer">
+            Copyright © 2023 <a href="http://www.topedusoft.com/" target="_blank">大连拓扑伟业科技有限公司</a>
+        </div>
+    </div>
+
+    <!--找回密码弹窗-->
+    <div class="win_modal" id="win_findpw">
+        <div class="win_modal_main w340">
+            <div class="win_tit">
+                找回密码
+                <span class="btn_colose"><a class="win_modal_close"><i class="iconfont icon-close"></i></a></span>
+            </div>
+            <div class="changepsd_win_con">
+                <div class="win_tips">
+                    <i class="iconfont icon-tips"></i>
+                    <b>
+                        温馨提示<br />
+                        找回密码后请尽快修改密码，谨防泄露。
+                    </b>
+                </div>
+                <div class="win_item_form">
+                    <div class="field">
+                        <h4>考试名称</h4>
+                        <input type="text" id="findpw_testname" value="请选择考试档案" disabled>
+                        <input type="hidden" id="findpw_testno" name="TestNo">
+                    </div>
+                    <div class="error_tips" style="opacity: 0;">
+                        <span class="iconfont icon-tips"></span>姓名输入错误，请检查后重新输入！
+                    </div>
+                </div>
+                <div class="win_item_form">
+                    <div class="field">
+                        <h4>身份证号</h4>
+                        <input type="text" id="findpw_IDCardNo" name="IDCardNo" placeholder="请输入身份证号"
+                               oninput="$(this).removeClass('inp_error').parent().next().css('opacity', '0')">
+                    </div>
+                    <div class="error_tips" style="opacity: 0;">
+                        <span class="iconfont icon-tips"></span>姓名输入错误，请检查后重新输入！
+                    </div>
+                </div>
+                <div class="win_item_form">
+                    <div class="field">
+                        <h4>真实姓名</h4>
+                        <input type="text" id="findpw_Name" name="Name" placeholder="请输入真实姓名"
+                               oninput="$(this).removeClass('inp_error').parent().next().css('opacity', '0')">
+                    </div>
+                    <div class="error_tips" style="opacity: 0;">
+                        <span class="iconfont icon-tips"></span>姓名输入错误，请检查后重新输入！
+                    </div>
+                </div>
+                <div class="win_item_form email_verify">
+                    <div class="field">
+                        <h4>安全邮箱</h4>
+                        <input type="text" id="findpw_Email" name="Email" placeholder="请输入安全邮箱"
+                               oninput="$(this).removeClass('inp_error').parent().next().css('opacity', '0')">
+                    </div>
+                    <div class="error_tips" style="opacity: 0;">
+                        <span class="iconfont icon-tips"></span>姓名输入错误，请检查后重新输入！
+                    </div>
+                </div>
+                <div class="win_item_form tel_verify" style="display:none">
+                    <div class="field">
+                        <h4>手机号</h4>
+                        <input type="text" id="findpw_Tel" name="Tel" placeholder="请输入手机号"
+                               oninput="$(this).removeClass('inp_error').parent().next().css('opacity', '0')">
+                    </div>
+                    <div class="error_tips" style="opacity: 0;">
+                        <span class="iconfont icon-tips"></span>姓名输入错误，请检查后重新输入！
+                    </div>
+                </div>
+                <div class="win_item_form">
+                    <div class="field">
+                        <h4>验证码</h4>
+                        <input type="text" id="findpw_VerifyCode" name="Vcode" placeholder="请输入右侧验证码" class="input"
+                               oninput="$(this).removeClass('inp_error').parent().next().css('opacity', '0')" />
+                        <a class="icon_code">
+                            <img id="findpw_btn_VerifyCode" alt="验证码看不清楚,请点击换一个" onclick="this.src='VerifyCode.ashx?time=' + Math.random()">
+                        </a>
+                    </div>
+                    <div class="error_tips" style="opacity: 0;">
+                        <span class="iconfont icon-tips"></span>姓名输入错误，请检查后重新输入！
+                    </div>
+                </div>
+            </div>
+            <div class="win_btn">
+                <div class="item_btn">
+                    <div class="item_btn_row">
+                        <span class="large_btn">
+                            <a class="btn_light_green win_modal_close" id="win_findpw_close">取消</a>
+                        </span>
+                        <span class="large_btn">
+                            <a onclick="Login.FindPW()" class="btn_green">确认</a>
+                        </span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>
+
+<script type="text/javascript">
+    Login.Init();
+    Enroll.footer();
+    // $("#register_IDCardNo").val("110101199705154017");
+    // $("#register_ExamID").val("106081202102072");
+    // $("#register_Name").val("潘昌昀");
+    // //$("#register_Email").val("79973496@qq.com");
+    // $("#register_Tel").val("15566678628");
+    // $("#register_PWCode").val("123456aa");
+    // $("#register_PWCode2").val("123456aa");
+    // $("#login_userid").val("110101199705154017");
+    // $("#login_username").val("潘昌昀");
+    // $("#login_pwcode").val("123456aa");
+    // $("#findpw_IDCardNo").val("110101199705154017");
+    // $("#findpw_Name").val("潘昌昀");
+    // $("#findpw_Tel").val("15566678628");
+</script>
